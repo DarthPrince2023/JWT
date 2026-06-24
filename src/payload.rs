@@ -169,16 +169,16 @@ impl Payload {
         not_valid_before: i64,
         expiration: i64
     ) -> Result<(), Error> {
-        if !Self::validate_input(username, &String::from("^[A-Za-z0-9]{1,50}$"))? {
+        if !Self::validate_input(username, &String::from("^[A-Za-z0-9-]{1,50}$"))? {
             return Err(Error::InvalidLength("Username".into(), 1, 50, username.len() as u64))
         }
-        if !Self::validate_input(subject, &String::from("^[A-Za-z0-9\\s]{1,200}$"))? {
+        if !Self::validate_input(subject, &String::from("^[A-Za-z0-9\\s-]{1,200}$"))? {
             return Err(Error::InvalidLength("Subject".into(), 1, 200, subject.len() as u64))
         }
-        if !Self::validate_input(role, &String::from("^[A-Za-z0-9]{1,15}$"))? {
+        if !Self::validate_input(role, &String::from("^[A-Za-z0-9-]{1,15}$"))? {
             return Err(Error::InvalidLength("Role".into(), 1, 15, role.len() as u64))
         }
-        if !Self::validate_input(issuer, &String::from("^[A-Za-z0-9]{1,100}$"))? {
+        if !Self::validate_input(issuer, &String::from("^[A-Za-z0-9-]{1,100}$"))? {
             return Err(Error::InvalidLength("Issuer".into(), 1, 100, issuer.len() as u64))
         }
         if expiration < Utc::now().timestamp() {
